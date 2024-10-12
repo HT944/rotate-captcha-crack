@@ -2,7 +2,7 @@ import torch.nn as nn
 from torch import Tensor
 
 from ..const import DEFAULT_CLS_NUM
-from ._unireplk import unireplknet_a
+from ._unireplk import unireplknet_p
 
 
 class RotNetR(nn.Module):
@@ -11,7 +11,7 @@ class RotNetR(nn.Module):
         train (bool, optional): True to load the pretrained parameters. Defaults to True.
 
     Note:
-        impl: `rotnet_street_view_resnet50` in https://github.com/d4nst/RotNet but with `RegNet_Y_3_2GF` as its backbone
+        impl: [`rotnet_street_view_resnet50`](https://github.com/d4nst/RotNet) in  but with [`UniRepLKNet-P`](https://github.com/AILab-CVC/UniRepLKNet) as its backbone
     """
 
     def __init__(self, cls_num: int = DEFAULT_CLS_NUM, train: bool = True) -> None:
@@ -19,7 +19,7 @@ class RotNetR(nn.Module):
 
         self.cls_num = cls_num
 
-        self.backbone = unireplknet_a(in_1k_pretrained=train)
+        self.backbone = unireplknet_p(in_1k_pretrained=train)
 
         fc_channels = self.backbone.head.in_features
         del self.backbone.head
